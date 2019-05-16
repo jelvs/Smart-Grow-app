@@ -37,14 +37,14 @@ class RegisterActivity : AppCompatActivity() {
             } else {
 
 
-                val auth = HttpTask.loginToApi(username, password)
+                /*val auth = HttpTask.loginToApi(username, password)
 
                 if (auth) {
                     Toast.makeText(this, "Register Successfully", Toast.LENGTH_LONG).show()
                     //  startActivity(Intent(this, RegisterActivity::class.java))
                 } else {
                     Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
-                }
+                }*/
 
             }
 

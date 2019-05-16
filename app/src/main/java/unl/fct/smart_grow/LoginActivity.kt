@@ -15,6 +15,7 @@ import java.net.URL
 import android.support.v4.os.HandlerCompat.postDelayed
 import kotlinx.android.synthetic.main.activity_register.*
 
+val TIMEOUT = 10*1000
 
 class LoginActivity : AppCompatActivity() {
 
@@ -40,15 +41,21 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Please fill all fields and Try Again!", Toast.LENGTH_LONG).show()
             }else{
-                val auth = HttpTask.loginToApi(username,password)
+                //val auth = HttpTask.loginToApi(username,password)
+                val json = JSONObject()
+                json.put("username", username)
+                json.put("password", password)
+                HttpTask {
+                    if (it == null) {
+                        Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
+                        return@HttpTask
+                    }
+                    println(it)
+                }.execute("POST", "https://api.smartgrow.space/login", json.toString())
+                Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
+                //startActivity(Intent(this, RegisterActivity::class.java))
 
-                if (auth) {
-                    Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this, RegisterActivity::class.java))
-                }
-                else{
-                    Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
-                }
+
 
 
 
@@ -123,46 +130,64 @@ class LoginActivity : AppCompatActivity() {
 
 
 }
-    object HttpTask {
+class HttpTask(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>()  {
 
+    var callback = callback
 
-        fun loginToApi(username: String, password: String) : Boolean{
+    override fun doInBackground(vararg params: String): String? {
+        val url = URL(params[1])
+        val httpClient = url.openConnection() as HttpURLConnection
+        httpClient.setReadTimeout(TIMEOUT)
+        httpClient.setConnectTimeout(TIMEOUT)
+        httpClient.requestMethod = params[0]
 
-            val url = URL("https://api.smartgrow.space/login")
-            val httpClient = url.openConnection() as HttpURLConnection
-
-            httpClient.requestMethod = "POST"
+        if (params[0] == "POST") {
             httpClient.instanceFollowRedirects = false
             httpClient.doOutput = true
             httpClient.doInput = true
             httpClient.useCaches = false
             httpClient.setRequestProperty("Content-Type", "application/json; charset=utf-8")
-            try{
-
-                val json = JSONObject()
-                json.put("username", username)
-                json.put("password", password)
+        }
+        try {
+            if (params[0] == "POST") {
                 httpClient.connect()
                 val os = httpClient.getOutputStream()
                 val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
-                writer.write(json.toString())
+                writer.write(params[2])
                 writer.flush()
                 writer.close()
                 os.close()
-
-                if (httpClient.responseCode == HttpURLConnection.HTTP_OK) {
-                    return true
-                } else {
-                    println("ERROR ${httpClient.responseCode}")
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                httpClient.disconnect()
             }
+            if (httpClient.responseCode == HttpURLConnection.HTTP_OK) {
+                //val respond = httpClient.responseMessage
+                val stream = BufferedInputStream(httpClient.inputStream)
+                val data: String = readStream(inputStream = stream)
 
-            return false
-
+                return data
+            } else {
+                println("ERROR ${httpClient.responseCode}")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            httpClient.disconnect()
         }
 
+        return null
     }
+
+    fun readStream(inputStream: BufferedInputStream): String {
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val stringBuilder = StringBuilder()
+        bufferedReader.forEachLine { stringBuilder.append(it) }
+        return stringBuilder.toString()
+    }
+
+
+    override fun onPostExecute(result: String?) {
+        super.onPostExecute(result)
+        callback(result)
+    }
+}
+
+
