@@ -1,12 +1,17 @@
 package unl.fct.smart_grow
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.*
+import org.json.JSONObject
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -29,6 +34,8 @@ class RegisterActivity : AppCompatActivity() {
             val username = findViewById<EditText>(R.id.username_field).text.toString()
             val password = findViewById<EditText>(R.id.password_field).text.toString()
             val repeatPassword = findViewById<EditText>(R.id.password_repeat).text.toString()
+            val isAdmin = findViewById<Switch>(R.id.isAdmin)
+
 
             if ((username == "" || password == "" || repeatPassword == "")) {
                 Toast.makeText(this, "Fields Missing", Toast.LENGTH_LONG).show()
@@ -37,14 +44,24 @@ class RegisterActivity : AppCompatActivity() {
             } else {
 
 
-                /*val auth = HttpTask.loginToApi(username, password)
+                val json = JSONObject()
+                json.put("username", username)
+                json.put("password", password)
+                json.put("confirmPassword", repeatPassword)
+                json.put("isAdmin", isAdmin.isChecked)
+                HttpTask {
+                    if (it == null) {
+                        Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
+                        return@HttpTask
+                    }
+                    else {
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        Toast.makeText(this, "Register Successfully", Toast.LENGTH_LONG).show()
+                        println(it)
+                    }
+                }.execute("POST", "https://api.smartgrow.space/register", json.toString())
 
-                if (auth) {
-                    Toast.makeText(this, "Register Successfully", Toast.LENGTH_LONG).show()
-                    //  startActivity(Intent(this, RegisterActivity::class.java))
-                } else {
-                    Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
-                }*/
+
 
             }
 
@@ -79,3 +96,4 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 }
+

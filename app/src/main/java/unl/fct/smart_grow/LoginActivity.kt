@@ -49,11 +49,14 @@ class LoginActivity : AppCompatActivity() {
                     if (it == null) {
                         Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
                         return@HttpTask
+                    }else{
+                        Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                        println(it)
                     }
-                    println(it)
+
                 }.execute("POST", "https://api.smartgrow.space/login", json.toString())
-                Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
-                //startActivity(Intent(this, RegisterActivity::class.java))
+
 
 
 
@@ -158,7 +161,7 @@ class HttpTask(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() 
                 writer.close()
                 os.close()
             }
-            if (httpClient.responseCode == HttpURLConnection.HTTP_OK) {
+            if (httpClient.responseCode == HttpURLConnection.HTTP_OK || httpClient.responseCode == HttpURLConnection.HTTP_CREATED) {
                 //val respond = httpClient.responseMessage
                 val stream = BufferedInputStream(httpClient.inputStream)
                 val data: String = readStream(inputStream = stream)
