@@ -21,7 +21,6 @@
         </activity>
         <activity
                 android:name=".BarChartActivity"
-                android:label="title_activity_bar_chart"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".LoginActivity">
