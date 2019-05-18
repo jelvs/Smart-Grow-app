@@ -52,6 +52,44 @@
             app:layout_constraintVertical_bias="0.018"
     />
 
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+            android:id="@+id/temperatureGauge"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            app:gaugeStartValue="-20"
+            app:gaugeEndValue="50"
+            app:gaugePointStartColor="@color/green"
+            app:gaugePointEndColor = "@color/green"
+            app:gaugeStrokeColor="#C1C7CD"
+            app:gaugePointSize="6"
+            app:gaugeStartAngle="135"
+            app:gaugeStrokeCap="ROUND"
+            app:gaugeStrokeWidth="10dp"
+            app:gaugeSweepAngle="270" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/Light" app:layout_constraintBottom_toTopOf="@+id/btnBarChart"
+            android:layout_marginBottom="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.141" app:layout_constraintVertical_bias="0.147"/>
+
+    <TextView
+            android:id="@+id/temperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/temperatureGauge"
+            android:layout_centerHorizontal="true"
+            android:text="23°C"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/temperatureGauge"
+            app:layout_constraintBottom_toBottomOf="@+id/temperatureGauge"
+            app:layout_constraintStart_toStartOf="@+id/temperatureGauge"
+            app:layout_constraintEnd_toEndOf="@+id/temperatureGauge"/>
     <Button
             android:id="@+id/btnBarChart"
             android:layout_width="144dp"

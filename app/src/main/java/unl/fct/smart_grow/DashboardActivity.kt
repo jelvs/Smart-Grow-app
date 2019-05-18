@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 
 import com.github.mikephil.charting.charts.BarChart;
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.json.JSONObject
+import pl.pawelkleczkowski.customgauge.CustomGauge
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -23,9 +26,10 @@ class DashboardActivity : AppCompatActivity() {
 
         val btnActivityChart = findViewById<Button>(R.id.btnActivityChart)
 
-        btnBarChart.setOnClickListener {
-            startActivity(Intent(this, LineChartActivity::class.java))
-        }
+        temperatureGauge.setOnClickListener { startActivity(Intent(this, LineChartActivity::class.java)) }
+        val temperatureValue = findViewById<TextView>(R.id.temperatureValue).text.toString()
+        val gauge = findViewById<CustomGauge>(R.id.temperatureGauge)
+        gauge.value = temperatureValue.split("°")[0].toInt()
     }
 
     fun turnLight() {

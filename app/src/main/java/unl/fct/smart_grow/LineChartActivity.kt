@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.LimitLine
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
 class LineChartActivity : AppCompatActivity() {
 
@@ -14,8 +18,6 @@ class LineChartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_line_chart)
 
         val lineChart = findViewById<LineChart>(R.id.linechart)
-        /*lineChart.onChartGestureListener = this
-        lineChart.setOnChartValueSelectedListener(this)*/
 
         lineChart.axisRight.isEnabled = false
         lineChart.isDragEnabled = true
@@ -42,13 +44,13 @@ class LineChartActivity : AppCompatActivity() {
         val set1 = LineDataSet(values, "Set 1")
         set1.lineWidth = 5f
         set1.setCircleColors(intArrayOf(R.color.black), this)
-        set1.setColors (intArrayOf(R.color.black), this)
+        set1.setColors(intArrayOf(R.color.black), this)
         set1.valueTextSize = 10f
 
         val set2 = LineDataSet(values2, "Set 2")
         set2.lineWidth = 5f
         set2.setCircleColors(intArrayOf(R.color.green), this)
-        set2.setColors (intArrayOf(R.color.green), this)
+        set2.setColors(intArrayOf(R.color.green), this)
         set2.valueTextSize = 10f
 
         val limitLineUpper = LimitLine(70f, "Too Hot")
