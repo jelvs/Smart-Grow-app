@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.json.JSONArray
 import pl.pawelkleczkowski.customgauge.CustomGauge
 import unl.fct.smart_grow.http.HttpTask
+import java.lang.Exception
 import kotlin.concurrent.timer
 import kotlin.math.roundToInt
 
@@ -43,10 +44,15 @@ class DashboardActivity : AppCompatActivity() {
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
-                    val response = JSONArray(it).getJSONObject(0)
-                    val lastReading = response.getString("Reading")
-                    gauge.value = lastReading.toDouble().roundToInt()
-                    textView.text = "$lastReading°C"
+                    try {
+                        val response = JSONArray(it).getJSONObject(0)
+                        val lastReading = response.getString("Reading")
+                        gauge.value = lastReading.toDouble().roundToInt()
+                        textView.text = "$lastReading°C"
+                    }catch (e: Exception){
+                        gauge.value = 0
+                        textView.text = "N/A"
+                    }
                 }
             }.execute("GET", "https://api.smartgrow.space/temperature")
         }
@@ -60,10 +66,15 @@ class DashboardActivity : AppCompatActivity() {
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
-                    val response = JSONArray(it).getJSONObject(0)
-                    val lastReading = response.getString("Reading")
-                    gauge.value = lastReading.toDouble().roundToInt()
-                    textView.text = "$lastReading%"
+                    try {
+                        val response = JSONArray(it).getJSONObject(0)
+                        val lastReading = response.getString("Reading")
+                        gauge.value = lastReading.toDouble().roundToInt()
+                        textView.text = "$lastReading%"
+                    }catch (e: Exception){
+                        gauge.value = 0
+                        textView.text = "N/A"
+                    }
                 }
             }.execute("GET", "https://api.smartgrow.space/humidity")
         }
@@ -77,10 +88,15 @@ class DashboardActivity : AppCompatActivity() {
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
-                    val response = JSONArray(it).getJSONObject(0)
-                    val lastReading = response.getString("Reading")
-                    gauge.value = lastReading.toDouble().roundToInt()
-                    textView.text = "$lastReading%"
+                    try {
+                        val response = JSONArray(it).getJSONObject(0)
+                        val lastReading = response.getString("Reading")
+                        gauge.value = lastReading.toDouble().roundToInt()
+                        textView.text = "$lastReading%"
+                    }catch (e: Exception){
+                        gauge.value = 0
+                        textView.text = "N/A"
+                    }
                 }
             }.execute("GET", "https://api.smartgrow.space/light")
         }
@@ -94,10 +110,15 @@ class DashboardActivity : AppCompatActivity() {
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
-                    val response = JSONArray(it).getJSONObject(0)
-                    val lastReading = response.getString("Reading")
-                    gauge.value = lastReading.toDouble().roundToInt()
-                    textView.text = "$lastReading%"
+                    try {
+                        val response = JSONArray(it).getJSONObject(0)
+                        val lastReading = response.getString("Reading")
+                        gauge.value = lastReading.toDouble().roundToInt()
+                        textView.text = "$lastReading%"
+                    }catch (e: Exception){
+                        gauge.value = 0
+                        textView.text = "N/A"
+                    }
                 }
             }.execute("GET", "https://api.smartgrow.space/soil")
         }
