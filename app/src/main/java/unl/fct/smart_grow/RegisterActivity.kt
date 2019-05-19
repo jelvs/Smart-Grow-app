@@ -9,6 +9,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import org.json.JSONObject
+import unl.fct.smart_grow.http.HttpTask
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -60,9 +61,6 @@ class RegisterActivity : AppCompatActivity() {
                         println(it)
                     }
                 }.execute("POST", "https://api.smartgrow.space/register", json.toString())
-
-
-
             }
 
         }

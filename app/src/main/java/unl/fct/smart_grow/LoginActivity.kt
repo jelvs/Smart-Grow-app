@@ -14,12 +14,9 @@ import java.net.HttpURLConnection
 import java.net.URL
 import android.support.v4.os.HandlerCompat.postDelayed
 import kotlinx.android.synthetic.main.activity_register.*
-
-val TIMEOUT = 10*1000
+import unl.fct.smart_grow.http.HttpTask
 
 class LoginActivity : AppCompatActivity() {
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         noAccountYetRegister()
     }
 
-    fun setLoginListener() {
+    private fun setLoginListener() {
         val login = findViewById<Button>(R.id.Login)
         login.setOnClickListener {
 
@@ -56,16 +53,8 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                 }.execute("POST", "https://api.smartgrow.space/login", json.toString())
-
-
-
-
-
-
-
             }
         }
-
     }
 
     private fun onClickShowPassword() {
@@ -89,108 +78,4 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
-
-     /*private fun loginToApi() : Boolean{
-
-        val url = URL("https://api.smartgrow.space/login")
-        val httpClient = url.openConnection() as HttpURLConnection
-
-        httpClient.requestMethod = "POST"
-        httpClient.instanceFollowRedirects = false
-        httpClient.doOutput = true
-        httpClient.doInput = true
-        httpClient.useCaches = false
-        httpClient.setRequestProperty("Content-Type", "application/json; charset=utf-8")
-        try{
-            val username = findViewById<EditText>(R.id.username_field).text.toString()
-            val password = findViewById<EditText>(R.id.password_field).text.toString()
-            val json = JSONObject()
-            json.put("username", username)
-            json.put("password", password)
-            httpClient.connect()
-            val os = httpClient.getOutputStream()
-            val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
-            writer.write(json.toString())
-            writer.flush()
-            writer.close()
-            os.close()
-
-            if (httpClient.responseCode == HttpURLConnection.HTTP_OK) {
-                Toast.makeText(this, "Hello bitch", Toast.LENGTH_LONG).show()
-                return true
-        } else {
-            println("ERROR ${httpClient.responseCode}")
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-    } finally {
-        httpClient.disconnect()
-    }
-
-        return false
-
-    }*/
-
-
 }
-class HttpTask(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>()  {
-
-    var callback = callback
-
-    override fun doInBackground(vararg params: String): String? {
-        val url = URL(params[1])
-        val httpClient = url.openConnection() as HttpURLConnection
-        httpClient.setReadTimeout(TIMEOUT)
-        httpClient.setConnectTimeout(TIMEOUT)
-        httpClient.requestMethod = params[0]
-
-        if (params[0] == "POST") {
-            httpClient.instanceFollowRedirects = false
-            httpClient.doOutput = true
-            httpClient.doInput = true
-            httpClient.useCaches = false
-            httpClient.setRequestProperty("Content-Type", "application/json; charset=utf-8")
-        }
-        try {
-            if (params[0] == "POST") {
-                httpClient.connect()
-                val os = httpClient.getOutputStream()
-                val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
-                writer.write(params[2])
-                writer.flush()
-                writer.close()
-                os.close()
-            }
-            if (httpClient.responseCode == HttpURLConnection.HTTP_OK || httpClient.responseCode == HttpURLConnection.HTTP_CREATED) {
-                //val respond = httpClient.responseMessage
-                val stream = BufferedInputStream(httpClient.inputStream)
-                val data: String = readStream(inputStream = stream)
-
-                return data
-            } else {
-                println("ERROR ${httpClient.responseCode}")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            httpClient.disconnect()
-        }
-
-        return null
-    }
-
-    fun readStream(inputStream: BufferedInputStream): String {
-        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-        val stringBuilder = StringBuilder()
-        bufferedReader.forEachLine { stringBuilder.append(it) }
-        return stringBuilder.toString()
-    }
-
-
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-        callback(result)
-    }
-}
-
-
