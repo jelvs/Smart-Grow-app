@@ -17,7 +17,7 @@
             android:id="@+id/imageView" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp" android:layout_marginTop="56dp" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.873"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.831"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0"/>
     <ImageView
@@ -27,9 +27,11 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="56dp" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.113"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.16"
             app:layout_constraintVertical_bias="0.0" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             android:id="@+id/imageView3"/>
+
+
     <Switch
 
             android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
             android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/imageView" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.235"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.313"
             app:layout_constraintVertical_bias="0.0"/>
     <Switch
 
@@ -48,9 +50,35 @@
             android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintTop_toBottomOf="@+id/imageView" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.82"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.778"
             app:layout_constraintVertical_bias="0.018"
     />
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+            android:id="@+id/lightGauge"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            app:gaugeStartValue="-20"
+            app:gaugeEndValue="50"
+            app:gaugePointStartColor="@color/green"
+            app:gaugePointEndColor="@color/green"
+            app:gaugeStrokeColor="#C1C7CD"
+            app:gaugePointSize="6"
+            app:gaugeStartAngle="135"
+            app:gaugeStrokeCap="ROUND"
+            app:gaugeStrokeWidth="10dp"
+            app:gaugeSweepAngle="270"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.094" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="184dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="1.0"/>
 
     <pl.pawelkleczkowski.customgauge.CustomGauge
             android:id="@+id/temperatureGauge"
@@ -64,18 +92,76 @@
             app:gaugeStartValue="-20"
             app:gaugeEndValue="50"
             app:gaugePointStartColor="@color/green"
-            app:gaugePointEndColor = "@color/green"
+            app:gaugePointEndColor="@color/green"
             app:gaugeStrokeColor="#C1C7CD"
             app:gaugePointSize="6"
             app:gaugeStartAngle="135"
             app:gaugeStrokeCap="ROUND"
             app:gaugeStrokeWidth="10dp"
-            app:gaugeSweepAngle="270" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/Light" app:layout_constraintBottom_toTopOf="@+id/btnBarChart"
-            android:layout_marginBottom="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
+            app:gaugeSweepAngle="270"
+            android:layout_marginStart="32dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/Light"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/humidityGauge" android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toTopOf="@+id/lightGauge"
+            android:layout_marginBottom="8dp" app:layout_constraintVertical_bias="0.666"/>
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+            android:id="@+id/humidityGauge"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            app:gaugeStartValue="-20"
+            app:gaugeEndValue="50"
+            app:gaugePointStartColor="@color/green"
+            app:gaugePointEndColor="@color/green"
+            app:gaugeStrokeColor="#C1C7CD"
+            app:gaugePointSize="6"
+            app:gaugeStartAngle="135"
+            app:gaugeStrokeCap="ROUND"
+            app:gaugeStrokeWidth="10dp"
+            app:gaugeSweepAngle="270"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-            app:layout_constraintHorizontal_bias="0.141" app:layout_constraintVertical_bias="0.147"/>
+            android:layout_marginTop="56dp" app:layout_constraintTop_toBottomOf="@+id/switch2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintVertical_bias="0.0" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.882"/>
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+            android:id="@+id/soilGauge"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            app:gaugeStartValue="-20"
+            app:gaugeEndValue="50"
+            app:gaugePointStartColor="@color/green"
+            app:gaugePointEndColor="@color/green"
+            app:gaugeStrokeColor="#C1C7CD"
+            app:gaugePointSize="6"
+            app:gaugeStartAngle="135"
+            app:gaugeStrokeCap="ROUND"
+            app:gaugeStrokeWidth="10dp"
+            app:gaugeSweepAngle="270"
+            app:layout_constraintStart_toEndOf="@+id/lightGauge"
+            android:layout_marginStart="8dp" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/humidityGauge" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintHorizontal_bias="0.638"
+            app:layout_constraintVertical_bias="0.12"/>
+
+
+
 
     <TextView
             android:id="@+id/temperatureValue"
@@ -90,41 +176,127 @@
             app:layout_constraintBottom_toBottomOf="@+id/temperatureGauge"
             app:layout_constraintStart_toStartOf="@+id/temperatureGauge"
             app:layout_constraintEnd_toEndOf="@+id/temperatureGauge"/>
-    <Button
-            android:id="@+id/btnBarChart"
-            android:layout_width="144dp"
-            android:layout_height="56dp"
-            android:layout_margin="10dp"
-            android:text="Bar Chart Demo"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.143" app:layout_constraintVertical_bias="0.93"/>
 
-    <Button
-            android:id="@+id/btnActivityChart"
-            android:layout_width="142dp"
+    <TextView
+            android:id="@+id/humidityValue"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Activity Chart Demo"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.856" app:layout_constraintVertical_bias="0.93"/>
+            android:layout_alignBottom="@+id/temperatureGauge"
+            android:layout_centerHorizontal="true"
+            android:text="50%"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/humidityGauge"
+            app:layout_constraintStart_toStartOf="@+id/humidityGauge"
+            app:layout_constraintBottom_toBottomOf="@+id/humidityGauge"
+            app:layout_constraintEnd_toEndOf="@+id/humidityGauge"/>
+
+    <TextView
+            android:id="@+id/lightValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/temperatureGauge"
+            android:layout_centerHorizontal="true"
+            android:text="75%"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/lightGauge"
+            app:layout_constraintBottom_toBottomOf="@+id/lightGauge"
+            app:layout_constraintStart_toStartOf="@+id/lightGauge" app:layout_constraintEnd_toEndOf="@+id/lightGauge"/>
+
+    <TextView
+            android:id="@+id/soilValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/temperatureGauge"
+            android:layout_centerHorizontal="true"
+            android:text="60%"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/soilGauge" app:layout_constraintEnd_toEndOf="@+id/soilGauge"
+            app:layout_constraintTop_toTopOf="@+id/soilGauge" app:layout_constraintBottom_toBottomOf="@+id/soilGauge"/>
+
     <View
             android:id="@+id/divider"
-            android:layout_width="9dp"
-            android:layout_height="177dp"
+            android:layout_width="15dp"
+            android:layout_height="528dp"
             android:background="?android:attr/listDivider"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/imageView"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintStart_toEndOf="@+id/imageView3" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.512"
-            app:layout_constraintVertical_bias="0.031"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintVertical_bias="0.07999998"/>
+    <TextView
+            android:text="Temperature"
+            android:textColor="#427A04"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/temperatureValue"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.096"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/lightValue"/>
+
+    <TextView
+            android:text="Humidity"
+            android:textColor="#427A04"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/textView2" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/humidityValue" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/soilValue" app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintVertical_bias="0.494"/>
+
+    <TextView
+            android:text="Light"
+            android:textColor="#427A04"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/lightValue" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.141" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" app:layout_constraintHorizontal_bias="0.19"/>
+
+    <TextView
+            android:text="Moisture Soil"
+            android:textColor="#427A04"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/soilValue" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            app:layout_constraintStart_toEndOf="@+id/textView4" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.78"
+            app:layout_constraintVertical_bias="0.16"/>
+
+    <Button
+            android:text="Routines"
+            android:layout_width="234dp"
+            android:layout_height="35dp"
+            android:background="@drawable/buttoncolor"
+            android:id="@+id/Login" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/divider" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintVertical_bias="0.286"/>
 
 
 </android.support.constraint.ConstraintLayout>

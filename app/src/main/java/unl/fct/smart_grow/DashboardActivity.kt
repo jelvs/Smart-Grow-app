@@ -24,9 +24,15 @@ class DashboardActivity : AppCompatActivity() {
 
         temperatureGauge.setOnClickListener { startActivity(Intent(this, LineChartActivity::class.java)) }
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
-        val gauge = findViewById<CustomGauge>(R.id.temperatureGauge)
+        val gaugeTemperature = findViewById<CustomGauge>(R.id.temperatureGauge)
+        val gaugeHumidity = findViewById<CustomGauge>(R.id.humidityGauge)
+        val gaugeLight = findViewById<CustomGauge>(R.id.lightGauge)
+        val gaugeSoil = findViewById<CustomGauge>(R.id.soilGauge)
 
-        setTemperature(gauge, temperatureValue, this)
+        setTemperature(gaugeTemperature, temperatureValue, this)
+        setHumidity(gaugeHumidity, humidityValue, this)
+        setLight(gaugeLight,lightValue, this)
+        setSoil(gaugeSoil, soilValue, this)
     }
 
     private fun setTemperature(gauge: CustomGauge, textView: TextView, context: Context) {
@@ -43,6 +49,57 @@ class DashboardActivity : AppCompatActivity() {
                     textView.text = "$lastReading°C"
                 }
             }.execute("GET", "https://api.smartgrow.space/temperature")
+        }
+    }
+
+    private fun setHumidity(gauge: CustomGauge, textView: TextView, context: Context) {
+        timer("getLastHumidity", true, 0, 10000){
+            HttpTask {
+                if (it == null) {
+                    Toast.makeText(context, "Error checking current humidity", Toast.LENGTH_LONG).show()
+                    gauge.value = 0
+                    textView.text = "N/A"
+                } else {
+                    val response = JSONArray(it).getJSONObject(0)
+                    val lastReading = response.getString("Reading")
+                    gauge.value = lastReading.toDouble().roundToInt()
+                    textView.text = "$lastReading%"
+                }
+            }.execute("GET", "https://api.smartgrow.space/humidity")
+        }
+    }
+
+    private fun setLight(gauge: CustomGauge, textView: TextView, context: Context) {
+        timer("getLastLight", true, 0, 10000){
+            HttpTask {
+                if (it == null) {
+                    Toast.makeText(context, "Error checking current light", Toast.LENGTH_LONG).show()
+                    gauge.value = 0
+                    textView.text = "N/A"
+                } else {
+                    val response = JSONArray(it).getJSONObject(0)
+                    val lastReading = response.getString("Reading")
+                    gauge.value = lastReading.toDouble().roundToInt()
+                    textView.text = "$lastReading%"
+                }
+            }.execute("GET", "https://api.smartgrow.space/light")
+        }
+    }
+
+    private fun setSoil(gauge: CustomGauge, textView: TextView, context: Context) {
+        timer("getLastSoil", true, 0, 10000){
+            HttpTask {
+                if (it == null) {
+                    Toast.makeText(context, "Error checking current Moisture Soil", Toast.LENGTH_LONG).show()
+                    gauge.value = 0
+                    textView.text = "N/A"
+                } else {
+                    val response = JSONArray(it).getJSONObject(0)
+                    val lastReading = response.getString("Reading")
+                    gauge.value = lastReading.toDouble().roundToInt()
+                    textView.text = "$lastReading%"
+                }
+            }.execute("GET", "https://api.smartgrow.space/soil")
         }
     }
 

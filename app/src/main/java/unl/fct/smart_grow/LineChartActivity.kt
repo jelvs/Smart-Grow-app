@@ -106,6 +106,8 @@ class LineChartActivity : AppCompatActivity() {
         val lineData = LineData(dataSet)
 
         lineChart.data = lineData
+        lineChart.animateX(2000)
+
         lineChart.invalidate()
     }
 }
