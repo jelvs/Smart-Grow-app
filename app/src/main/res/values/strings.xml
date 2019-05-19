@@ -104,4 +104,13 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string-array name="NumberOfReadings">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+        <item>100</item>
+        <item>1000</item>
+    </string-array>
 </resources>

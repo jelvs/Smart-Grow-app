@@ -21,11 +21,6 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-        val barChart = findViewById<BarChart>(R.id.linechart)
-
-        val btnBarChart = findViewById<Button>(R.id.btnBarChart)
-
-        val btnActivityChart = findViewById<Button>(R.id.btnActivityChart)
 
         temperatureGauge.setOnClickListener { startActivity(Intent(this, LineChartActivity::class.java)) }
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
