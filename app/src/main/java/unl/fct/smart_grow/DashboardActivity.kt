@@ -37,7 +37,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setTemperature(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastTemperature", true, 0, 10000){
+        timer("getLastTemperature", true, 0, 2000){
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current temperature", Toast.LENGTH_LONG).show()
