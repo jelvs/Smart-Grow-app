@@ -48,7 +48,7 @@ class RoutineActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.timePicker).text = "$hourOfDay:$minute"
             }
         }
-        val timePickerDialog = TimePickerDialog(this, listenner, 0, 0, true)
+        val timePickerDialog = TimePickerDialog(this, R.style.timepicker, listenner, 0, 0, true)
 
         timePickerDialog.show()
     }
