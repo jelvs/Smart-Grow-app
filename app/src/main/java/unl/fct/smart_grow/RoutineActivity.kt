@@ -41,15 +41,14 @@ class RoutineActivity : AppCompatActivity() {
 
 
     private fun editTime() {
-        val x: Int = 0
-        val y: Int = 0
+
 
         val listenner = object : OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                findViewById<TextView>(R.id.timePicker).text = "$hourOfDay/$minute"
+                findViewById<TextView>(R.id.timePicker).text = "$hourOfDay:$minute"
             }
         }
-        val timePickerDialog = TimePickerDialog(this, listenner, x, y, true)
+        val timePickerDialog = TimePickerDialog(this, listenner, 0, 0, true)
 
         timePickerDialog.show()
     }
