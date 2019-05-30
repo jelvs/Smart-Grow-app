@@ -113,4 +113,10 @@
         <item>100</item>
         <item>1000</item>
     </string-array>
+    <string-array name="SwitchLightWater">
+        <item>Light</item>
+        <item>Water</item>
+
+    </string-array>
+
 </resources>
