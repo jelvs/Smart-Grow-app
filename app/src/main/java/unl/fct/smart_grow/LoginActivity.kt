@@ -13,6 +13,7 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 import android.support.v4.os.HandlerCompat.postDelayed
+import android.view.View
 import kotlinx.android.synthetic.main.activity_register.*
 import unl.fct.smart_grow.http.HttpTask
 
@@ -30,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.Login)
         login.setOnClickListener {
 
-
             val username = findViewById<EditText>(R.id.username_field).text.toString()
             val password = findViewById<EditText>(R.id.password_field).text.toString()
 
@@ -38,16 +38,27 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Please fill all fields and Try Again!", Toast.LENGTH_LONG).show()
             }else{
-                //val auth = HttpTask.loginToApi(username,password)
+                val spinner = findViewById<ProgressBar>(R.id.loginLoading)
+                spinner.visibility = View.VISIBLE
+
                 val json = JSONObject()
                 json.put("username", username)
                 json.put("password", password)
+
                 HttpTask {
                     if (it == null) {
                         Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
+
+                        val spinner = findViewById<ProgressBar>(R.id.loginLoading)
+                        spinner.visibility = View.GONE
+
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
+
+                        val spinner = findViewById<ProgressBar>(R.id.loginLoading)
+                        spinner.visibility = View.GONE
+
                         startActivity(Intent(this, DashboardActivity::class.java))
                         println(it)
                     }

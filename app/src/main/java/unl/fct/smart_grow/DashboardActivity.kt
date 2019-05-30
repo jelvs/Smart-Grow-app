@@ -4,15 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.github.mikephil.charting.charts.BarChart
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.json.JSONArray
 import pl.pawelkleczkowski.customgauge.CustomGauge
 import unl.fct.smart_grow.http.HttpTask
-import java.lang.Exception
 import kotlin.concurrent.timer
 import kotlin.math.roundToInt
 
@@ -23,7 +20,11 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        temperatureGauge.setOnClickListener { startActivity(Intent(this, LineChartActivity::class.java)) }
+        temperatureGauge.setOnClickListener { startActivity(Intent(this, TemperatureGraph::class.java)) }
+        humidityGauge.setOnClickListener { startActivity(Intent(this, HumidityGraph::class.java)) }
+        soilGauge.setOnClickListener { startActivity(Intent(this, SoilGraph::class.java)) }
+        lightGauge.setOnClickListener { startActivity(Intent(this, LightGraph::class.java)) }
+
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
         val gaugeTemperature = findViewById<CustomGauge>(R.id.temperatureGauge)
         val gaugeHumidity = findViewById<CustomGauge>(R.id.humidityGauge)
@@ -32,12 +33,12 @@ class DashboardActivity : AppCompatActivity() {
 
         setTemperature(gaugeTemperature, temperatureValue, this)
         setHumidity(gaugeHumidity, humidityValue, this)
-        setLight(gaugeLight,lightValue, this)
+        setLight(gaugeLight, lightValue, this)
         setSoil(gaugeSoil, soilValue, this)
     }
 
     private fun setTemperature(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastTemperature", true, 0, 2000){
+        timer("getLastTemperature", true, 0, 2000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current temperature", Toast.LENGTH_LONG).show()
@@ -49,7 +50,7 @@ class DashboardActivity : AppCompatActivity() {
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
                         textView.text = "$lastReading°C"
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
                     }
@@ -59,7 +60,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setHumidity(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastHumidity", true, 0, 10000){
+        timer("getLastHumidity", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current humidity", Toast.LENGTH_LONG).show()
@@ -71,7 +72,7 @@ class DashboardActivity : AppCompatActivity() {
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
                         textView.text = "$lastReading%"
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
                     }
@@ -81,7 +82,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setLight(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastLight", true, 0, 10000){
+        timer("getLastLight", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current light", Toast.LENGTH_LONG).show()
@@ -93,7 +94,7 @@ class DashboardActivity : AppCompatActivity() {
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
                         textView.text = "$lastReading%"
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
                     }
@@ -103,7 +104,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setSoil(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastSoil", true, 0, 10000){
+        timer("getLastSoil", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current Moisture Soil", Toast.LENGTH_LONG).show()
@@ -115,7 +116,7 @@ class DashboardActivity : AppCompatActivity() {
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
                         textView.text = "$lastReading%"
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
                     }

@@ -4,10 +4,8 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-
-
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="Temperature History"
+              android:text="Humidity History"
               android:textSize="50dp"
               android:layout_margin="20dp"/>
 

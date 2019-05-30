@@ -14,16 +14,14 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import kotlinx.android.synthetic.main.activity_line_chart.*
 import org.json.JSONArray
 import unl.fct.smart_grow.http.HttpTask
 
-class LineChartActivity : AppCompatActivity() {
-
+class LightGraph : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_line_chart)
+        setContentView(R.layout.activity_light_graph)
 
         val spinner = findViewById<Spinner>(R.id.numberOfReadings)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -39,19 +37,19 @@ class LineChartActivity : AppCompatActivity() {
         buildChart(spinner.selectedItem.toString().toInt())
     }
 
-    private fun buildChart (numberOfReadings: Int) {
+    private fun buildChart(numberOfReadings: Int) {
         HttpTask {
             if (it == null) {
-                Toast.makeText(this, "Error checking current temperature", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error checking current light", Toast.LENGTH_LONG).show()
             } else {
                 val response = JSONArray(it)
-                setTemperatureData(response)
+                setLightData(response, numberOfReadings)
             }
-        }.execute("GET", "https://api.smartgrow.space/temperature?readings=$numberOfReadings")
+        }.execute("GET", "https://api.smartgrow.space/light?readings=$numberOfReadings")
     }
 
     @SuppressLint("NewApi")
-    private fun setTemperatureData(data: JSONArray) {
+    private fun setLightData(data: JSONArray, numberOfReadings: Int) {
 
         val lineChart = findViewById<LineChart>(R.id.linechart)
 
@@ -81,14 +79,19 @@ class LineChartActivity : AppCompatActivity() {
             )
         }
 
-        val set1 = LineDataSet(values, "Temperature")
+        val set1 = LineDataSet(values, "Light")
         set1.lineWidth = 5f
         set1.setCircleColors(intArrayOf(R.color.green), this)
         set1.setDrawCircleHole(true)
         set1.setColors(intArrayOf(R.color.green), this)
-        set1.valueTextSize = 10f
 
-        val limitLineUpper = LimitLine(50f, "Too Hot")
+        if (numberOfReadings >= 20) {
+            set1.valueTextSize = 0f
+        } else {
+            set1.valueTextSize = 10f
+        }
+
+        val limitLineUpper = LimitLine(60f, "Too Bright")
         limitLineUpper.lineWidth = 4f
         limitLineUpper.enableDashedLine(10f, 10f, 0f)
         limitLineUpper.labelPosition = LimitLine.LimitLabelPosition.LEFT_TOP
