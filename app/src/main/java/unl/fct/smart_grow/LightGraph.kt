@@ -1,10 +1,12 @@
 package unl.fct.smart_grow
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
 import com.github.mikephil.charting.charts.LineChart
@@ -22,6 +24,11 @@ class LightGraph : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_light_graph)
+
+        val goBack = findViewById<ImageButton>(R.id.gobacklight)
+        goBack.setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java))
+        }
 
         val spinner = findViewById<Spinner>(R.id.numberOfReadings)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -112,5 +119,9 @@ class LightGraph : AppCompatActivity() {
         lineChart.animateX(2000)
 
         lineChart.invalidate()
+    }
+
+    override fun onBackPressed() {
+        // do nothing
     }
 }

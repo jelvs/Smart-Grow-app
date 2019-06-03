@@ -93,5 +93,9 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        // do nothing
+    }
 }
 

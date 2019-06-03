@@ -20,6 +20,10 @@ import kotlin.math.roundToInt
 
 class DashboardActivity : AppCompatActivity() {
 
+    private var temperatureTimer: Timer? = null
+    private var humidityTimer: Timer? = null
+    private var soilTimer: Timer? = null
+    private var lightTimer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +31,11 @@ class DashboardActivity : AppCompatActivity() {
 
         displayRoutines()
 
-        temperatureGauge.setOnClickListener { startActivity(Intent(this, TemperatureGraph::class.java)) }
-        humidityGauge.setOnClickListener { startActivity(Intent(this, HumidityGraph::class.java)) }
-        soilGauge.setOnClickListener { startActivity(Intent(this, SoilGraph::class.java)) }
-        lightGauge.setOnClickListener { startActivity(Intent(this, LightGraph::class.java)) }
-        routines.setOnClickListener { startActivity(Intent(this, RoutineActivity::class.java)) }
+        temperatureGauge.setOnClickListener { finish(); startActivity(Intent(this, TemperatureGraph::class.java)) }
+        humidityGauge.setOnClickListener { finish(); startActivity(Intent(this, HumidityGraph::class.java)) }
+        soilGauge.setOnClickListener { finish(); startActivity(Intent(this, SoilGraph::class.java)) }
+        lightGauge.setOnClickListener { finish(); startActivity(Intent(this, LightGraph::class.java)) }
+        routines.setOnClickListener { finish(); startActivity(Intent(this, RoutineActivity::class.java)) }
 
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
         val gaugeTemperature = findViewById<CustomGauge>(R.id.temperatureGauge)
@@ -46,7 +50,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setTemperature(gauge: CustomGauge, textView: TextView, context: Context) {
-       timer("getLastTemperature", true, 0, 2000) {
+       temperatureTimer = timer("getLastTemperature", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current temperature", Toast.LENGTH_LONG).show()
@@ -68,7 +72,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setHumidity(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastHumidity", true, 0, 10000) {
+        humidityTimer = timer("getLastHumidity", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current humidity", Toast.LENGTH_LONG).show()
@@ -90,7 +94,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setLight(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastLight", true, 0, 10000) {
+        lightTimer = timer("getLastLight", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current light", Toast.LENGTH_LONG).show()
@@ -112,7 +116,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setSoil(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastSoil", true, 0, 10000) {
+        soilTimer = timer("getLastSoil", true, 0, 10000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current Moisture Soil", Toast.LENGTH_LONG).show()
@@ -146,6 +150,19 @@ class DashboardActivity : AppCompatActivity() {
             waterSwicth.isClickable = false
             waterSwicth.isEnabled = false
         }
+    }
+
+    override fun onBackPressed() {
+        // do nothing
+    }
+
+    override fun finish() {
+        temperatureTimer?.cancel()
+        humidityTimer?.cancel()
+        soilTimer?.cancel()
+        lightTimer?.cancel()
+
+        super.finish()
     }
 
     /*fun turnLight() {

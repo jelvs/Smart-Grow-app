@@ -64,6 +64,11 @@ class RoutineActivity : AppCompatActivity() {
 
             }.execute("POST", "https://api.smartgrow.space/routine", json.toString())
         }
+
+        val goBack = findViewById<ImageButton>(R.id.gobackroutine)
+        goBack.setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java))
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -91,5 +96,9 @@ class RoutineActivity : AppCompatActivity() {
         val timePickerDialog = TimePickerDialog(this, R.style.timepicker, listener, 0, 0, true)
 
         timePickerDialog.show()
+    }
+
+    override fun onBackPressed() {
+        // do nothing
     }
 }
