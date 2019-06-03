@@ -14,34 +14,46 @@
             android:roundIcon="@drawable/logo"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".RoutineActivity" android:noHistory="true" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".RoutineList">
+        </activity>
+        <activity
+                android:name=".RoutineActivity"
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".DashboardActivity"
                 android:label="@string/title_activity_dashboard"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:noHistory="true"/>
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".TemperatureGraph"
-                android:theme="@style/AppTheme.NoActionBar" android:noHistory="true"/>
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".LoginActivity"
-                android:theme="@style/AppTheme.NoActionBar" android:noHistory="true">
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" android:noHistory="true"/>
+        <activity
+                android:name=".RegisterActivity"
+                android:noHistory="true"/>
         <activity
                 android:name=".HumidityGraph"
-                android:theme="@style/AppTheme.NoActionBar" android:noHistory="true"/>
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".SoilGraph"
-                android:theme="@style/AppTheme.NoActionBar" android:noHistory="true"/>
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".LightGraph"
-                android:theme="@style/AppTheme.NoActionBar" android:noHistory="true"/>
+                android:noHistory="true"
+                android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

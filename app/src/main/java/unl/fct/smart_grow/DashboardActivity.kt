@@ -35,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
         humidityGauge.setOnClickListener { finish(); startActivity(Intent(this, HumidityGraph::class.java)) }
         soilGauge.setOnClickListener { finish(); startActivity(Intent(this, SoilGraph::class.java)) }
         lightGauge.setOnClickListener { finish(); startActivity(Intent(this, LightGraph::class.java)) }
-        routines.setOnClickListener { finish(); startActivity(Intent(this, RoutineActivity::class.java)) }
+        routines.setOnClickListener { finish(); startActivity(Intent(this, RoutineList::class.java)) }
 
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
         val gaugeTemperature = findViewById<CustomGauge>(R.id.temperatureGauge)

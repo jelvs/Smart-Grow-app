@@ -67,7 +67,7 @@ class RoutineActivity : AppCompatActivity() {
 
         val goBack = findViewById<ImageButton>(R.id.gobackroutine)
         goBack.setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java))
+            startActivity(Intent(this, RoutineList::class.java))
         }
     }
 
