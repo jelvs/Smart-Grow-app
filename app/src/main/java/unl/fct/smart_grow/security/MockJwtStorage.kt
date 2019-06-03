@@ -6,7 +6,7 @@ import com.auth0.jwt.JWT
 
 object MockJwtStorage {
 
-    private var jwt: String? = null
+    var jwt: String? = null
     var isAdmin: Boolean = false
     var userName: String? = null
 

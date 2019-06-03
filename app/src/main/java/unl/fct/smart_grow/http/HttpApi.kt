@@ -1,6 +1,7 @@
 package unl.fct.smart_grow.http
 
 import android.os.AsyncTask
+import unl.fct.smart_grow.security.MockJwtStorage
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -17,6 +18,7 @@ class HttpTask(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() 
         httpClient.readTimeout = TIMEOUT
         httpClient.connectTimeout = TIMEOUT
         httpClient.requestMethod = params[0]
+        httpClient.setRequestProperty("Authorization", "Bearer: ${MockJwtStorage.jwt}")
 
         if (params[0] == "POST") {
             httpClient.instanceFollowRedirects = false
