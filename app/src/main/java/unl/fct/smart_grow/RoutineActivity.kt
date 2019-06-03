@@ -78,9 +78,9 @@ class RoutineActivity : AppCompatActivity() {
 
         datePickerDialog.setOnDateSetListener { view, year, month, dayOfMonth ->
 
-            findViewById<TextView>(R.id.datePicker).text = "$year/$month/$dayOfMonth"
+            findViewById<TextView>(R.id.datePicker).text = "$year/${month + 1}/$dayOfMonth"
             this.year = year
-            this.month = month
+            this.month = month + 1
             this.dayOfMonth = dayOfMonth
         }
         datePickerDialog.show()
