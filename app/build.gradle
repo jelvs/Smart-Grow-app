@@ -39,4 +39,5 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
+    implementation 'com.auth0:java-jwt:3.8.1'
 }

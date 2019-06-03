@@ -16,6 +16,7 @@ import android.support.v4.os.HandlerCompat.postDelayed
 import android.view.View
 import kotlinx.android.synthetic.main.activity_register.*
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.security.MockJwtStorage
 
 class LoginActivity : AppCompatActivity() {
 
@@ -59,8 +60,8 @@ class LoginActivity : AppCompatActivity() {
                         val spinner = findViewById<ProgressBar>(R.id.loginLoading)
                         spinner.visibility = View.GONE
 
+                        MockJwtStorage.login(it)
                         startActivity(Intent(this, DashboardActivity::class.java))
-                        println(it)
                     }
 
                 }.execute("POST", "https://api.smartgrow.space/login", json.toString())
@@ -88,5 +89,9 @@ class LoginActivity : AppCompatActivity() {
         registerJump.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        // do nothing
     }
 }
