@@ -14,6 +14,7 @@ import org.json.JSONArray
 import pl.pawelkleczkowski.customgauge.CustomGauge
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
+import java.util.*
 import kotlin.concurrent.timer
 import kotlin.math.roundToInt
 
@@ -30,7 +31,7 @@ class DashboardActivity : AppCompatActivity() {
         humidityGauge.setOnClickListener { startActivity(Intent(this, HumidityGraph::class.java)) }
         soilGauge.setOnClickListener { startActivity(Intent(this, SoilGraph::class.java)) }
         lightGauge.setOnClickListener { startActivity(Intent(this, LightGraph::class.java)) }
-        routines.setOnClickListener{startActivity(Intent(this, RoutineActivity::class.java)) }
+        routines.setOnClickListener { startActivity(Intent(this, RoutineActivity::class.java)) }
 
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
         val gaugeTemperature = findViewById<CustomGauge>(R.id.temperatureGauge)
@@ -45,7 +46,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setTemperature(gauge: CustomGauge, textView: TextView, context: Context) {
-        timer("getLastTemperature", true, 0, 2000) {
+       timer("getLastTemperature", true, 0, 2000) {
             HttpTask {
                 if (it == null) {
                     Toast.makeText(context, "Error checking current temperature", Toast.LENGTH_LONG).show()
@@ -132,8 +133,8 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayRoutines () {
-        if (!MockJwtStorage.isAdmin){
+    private fun displayRoutines() {
+        if (!MockJwtStorage.isAdmin) {
             val routineButton = findViewById<Button>(R.id.routines)
             routineButton.visibility = View.GONE
 
