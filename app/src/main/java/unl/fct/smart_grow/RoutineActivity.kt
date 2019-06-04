@@ -59,7 +59,7 @@ class RoutineActivity : AppCompatActivity() {
                     return@HttpTask
                 }else{
                     Toast.makeText(this, "Routine Created Successfully", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this, DashboardActivity::class.java))
+                    startActivity(Intent(this, RoutineList::class.java))
                 }
 
             }.execute("POST", "https://api.smartgrow.space/routine", json.toString())

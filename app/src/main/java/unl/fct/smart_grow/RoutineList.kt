@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.*
 import org.json.JSONArray
+import org.json.JSONObject
 import unl.fct.smart_grow.http.HttpTask
 
 
@@ -68,7 +69,18 @@ class RoutineList : AppCompatActivity() {
                 child.findViewById<TextView>(R.id.onoff).text = "ON"
 
                 child.findViewById<ImageButton>(R.id.action).setOnClickListener {
-                    println("Hello: $index")
+
+                    val json = JSONObject()
+                    json.put("id", routine.getInt("Id"))
+
+                    HttpTask {
+                        if (it == null) {
+                            //
+                        } else {
+                            finish()
+                            startActivity(Intent(this, RoutineList::class.java))
+                        }
+                    }.execute("DELETE", "https://api.smartgrow.space/routine", json.toString())
                 }
 
                 container.addView(child)

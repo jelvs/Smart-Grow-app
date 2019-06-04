@@ -60,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                         val spinner = findViewById<ProgressBar>(R.id.loginLoading)
                         spinner.visibility = View.GONE
 
+                        println(it)
                         MockJwtStorage.login(it)
                         startActivity(Intent(this, DashboardActivity::class.java))
                     }

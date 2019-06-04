@@ -28,7 +28,7 @@ class HttpTask(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() 
             httpClient.setRequestProperty("Content-Type", "application/json; charset=utf-8")
         }
         try {
-            if (params[0] == "POST") {
+            if (params[0] == "POST" || params[0] == "PUT" || params[0] == "DELETE") {
                 httpClient.connect()
                 val os = httpClient.getOutputStream()
                 val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
@@ -37,7 +37,7 @@ class HttpTask(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() 
                 writer.close()
                 os.close()
             }
-            if (httpClient.responseCode == HttpURLConnection.HTTP_OK || httpClient.responseCode == HttpURLConnection.HTTP_CREATED) {
+            if (httpClient.responseCode == HttpURLConnection.HTTP_OK || httpClient.responseCode == HttpURLConnection.HTTP_CREATED || httpClient.responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                 //val respond = httpClient.responseMessage
                 val stream = BufferedInputStream(httpClient.inputStream)
 
