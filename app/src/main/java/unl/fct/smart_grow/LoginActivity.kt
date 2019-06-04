@@ -1,20 +1,13 @@
 package unl.fct.smart_grow
 
 import android.content.Intent
-import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.widget.*
 import org.json.JSONObject
-import java.io.*
-import java.net.HttpURLConnection
-import java.net.URL
-import android.support.v4.os.HandlerCompat.postDelayed
-import android.view.View
-import kotlinx.android.synthetic.main.activity_register.*
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
 
@@ -38,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             if ((username == "" || password == "")) {
 
                 Toast.makeText(this, "Please fill all fields and Try Again!", Toast.LENGTH_LONG).show()
-            }else{
+            } else {
                 val spinner = findViewById<ProgressBar>(R.id.loginLoading)
                 spinner.visibility = View.VISIBLE
 
@@ -46,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 json.put("username", username)
                 json.put("password", password)
 
-                HttpTask {
+                HttpTask (this) {
                     if (it == null) {
                         Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
 
@@ -54,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                         spinner.visibility = View.GONE
 
                         return@HttpTask
-                    }else{
+                    } else {
                         Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
 
                         val spinner = findViewById<ProgressBar>(R.id.loginLoading)
@@ -80,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
 
             } else {
                 passwordField.transformationMethod = PasswordTransformationMethod.getInstance();
-               // showHidePassword.isChecked()
+                // showHidePassword.isChecked()
             }
         }
     }

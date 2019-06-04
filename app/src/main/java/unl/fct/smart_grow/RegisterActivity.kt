@@ -50,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
                 json.put("password", password)
                 json.put("confirmPassword", repeatPassword)
                 json.put("isAdmin", isAdmin.isChecked)
-                HttpTask {
+                HttpTask (this) {
                     if (it == null) {
                         Toast.makeText(this, "Wrong username or password", Toast.LENGTH_LONG).show()
                         return@HttpTask

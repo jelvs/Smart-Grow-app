@@ -3,6 +3,7 @@ package unl.fct.smart_grow.security
 import android.os.Build
 import android.support.annotation.RequiresApi
 import com.auth0.jwt.JWT
+import java.util.*
 
 object MockJwtStorage {
 
@@ -17,5 +18,14 @@ object MockJwtStorage {
 
         this.userName = decodeJwt.claims["username"]!!.asString()
         this.isAdmin = decodeJwt.claims["isAdmin"]!!.asBoolean()
+    }
+
+    fun isExpired (): Boolean {
+        if (jwt == null) {
+            return false
+        }
+        val decodeJwt = JWT.decode(jwt) ?: null
+
+        return decodeJwt?.expiresAt?.before(Date()) ?: false
     }
 }

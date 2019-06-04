@@ -50,10 +50,10 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setTemperature(gauge: CustomGauge, textView: TextView, context: Context) {
-       temperatureTimer = timer("getLastTemperature", true, 0, 10000) {
-            HttpTask {
+        temperatureTimer = timer("getLastTemperature", true, 0, 10000) {
+            HttpTask(this@DashboardActivity) {
                 if (it == null) {
-                    Toast.makeText(context, "Error checking current temperature", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "Error checking current temperature", Toast.LENGTH_LONG).show()
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
@@ -73,9 +73,9 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setHumidity(gauge: CustomGauge, textView: TextView, context: Context) {
         humidityTimer = timer("getLastHumidity", true, 0, 10000) {
-            HttpTask {
+            HttpTask(this@DashboardActivity) {
                 if (it == null) {
-                    Toast.makeText(context, "Error checking current humidity", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "Error checking current humidity", Toast.LENGTH_LONG).show()
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
@@ -95,9 +95,9 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setLight(gauge: CustomGauge, textView: TextView, context: Context) {
         lightTimer = timer("getLastLight", true, 0, 10000) {
-            HttpTask {
+            HttpTask(this@DashboardActivity) {
                 if (it == null) {
-                    Toast.makeText(context, "Error checking current light", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "Error checking current light", Toast.LENGTH_LONG).show()
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {
@@ -117,9 +117,9 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setSoil(gauge: CustomGauge, textView: TextView, context: Context) {
         soilTimer = timer("getLastSoil", true, 0, 10000) {
-            HttpTask {
+            HttpTask(this@DashboardActivity) {
                 if (it == null) {
-                    Toast.makeText(context, "Error checking current Moisture Soil", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "Error checking current Moisture Soil", Toast.LENGTH_LONG).show()
                     gauge.value = 0
                     textView.text = "N/A"
                 } else {

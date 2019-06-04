@@ -37,7 +37,7 @@ class RoutineList : AppCompatActivity() {
     }
 
     private fun setTable() {
-        HttpTask {
+        HttpTask(this) {
             if (it == null) {
                 Toast.makeText(this, "Error checking current soils", Toast.LENGTH_LONG).show()
             } else {
@@ -73,7 +73,7 @@ class RoutineList : AppCompatActivity() {
                     val json = JSONObject()
                     json.put("id", routine.getInt("Id"))
 
-                    HttpTask {
+                    HttpTask(this) {
                         if (it == null) {
                             //
                         } else {

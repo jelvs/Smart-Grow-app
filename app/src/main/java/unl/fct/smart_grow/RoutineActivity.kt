@@ -53,7 +53,7 @@ class RoutineActivity : AppCompatActivity() {
             json.put("output", spinner.selectedItem.toString())
             json.put("datetime", (LocalDateTime.of(year, month, dayOfMonth, hour, min).toEpochSecond(ZoneOffset.UTC)).toString())
 
-            HttpTask {
+            HttpTask(this) {
                 if (it == null) {
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
                     return@HttpTask

@@ -45,7 +45,7 @@ class TemperatureGraph : AppCompatActivity() {
     }
 
     private fun buildChart(numberOfReadings: Int) {
-        HttpTask {
+        HttpTask (this) {
             if (it == null) {
                 Toast.makeText(this, "Error checking current temperature", Toast.LENGTH_LONG).show()
             } else {
