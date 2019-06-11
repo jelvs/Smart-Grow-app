@@ -1,8 +1,12 @@
 package unl.fct.smart_grow
 
+import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
@@ -14,6 +18,8 @@ import org.json.JSONArray
 import pl.pawelkleczkowski.customgauge.CustomGauge
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
+import unl.fct.smart_grow.utils.RoutineHelper
+import unl.fct.smart_grow.utils.StateSwitches
 import java.util.*
 import kotlin.concurrent.timer
 import kotlin.math.roundToInt
@@ -25,10 +31,14 @@ class DashboardActivity : AppCompatActivity() {
     private var soilTimer: Timer? = null
     private var lightTimer: Timer? = null
 
+    @SuppressLint("NewApi")
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        RoutineHelper.start()
         displayRoutines()
         turnLight()
         turnWater()

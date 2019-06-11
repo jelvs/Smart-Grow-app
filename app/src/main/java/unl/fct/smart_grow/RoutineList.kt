@@ -73,6 +73,8 @@ class RoutineList : AppCompatActivity() {
                     val json = JSONObject()
                     json.put("id", routine.getInt("Id"))
 
+                    //TODO: delete locally
+
                     HttpTask(this) {
                         if (it == null) {
                             //

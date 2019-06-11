@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_routine.view.*
 import org.json.JSONObject
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
+import unl.fct.smart_grow.utils.Routine
+import unl.fct.smart_grow.utils.RoutineHelper
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -52,6 +54,11 @@ class RoutineActivity : AppCompatActivity() {
             val json = JSONObject()
             json.put("output", spinner.selectedItem.toString())
             json.put("datetime", (LocalDateTime.of(year, month, dayOfMonth, hour, min).toEpochSecond(ZoneOffset.UTC)).toString())
+
+            //TODO: on/off to routine
+
+            val newRoutine = Routine(spinner.selectedItem.toString(), LocalDateTime.of(year, month, dayOfMonth, hour, min))
+            RoutineHelper.addRoutine(newRoutine)
 
             HttpTask(this) {
                 if (it == null) {

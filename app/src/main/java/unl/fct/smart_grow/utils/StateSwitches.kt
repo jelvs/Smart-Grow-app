@@ -1,4 +1,4 @@
-package unl.fct.smart_grow
+package unl.fct.smart_grow.utils
 
 object StateSwitches {
 
