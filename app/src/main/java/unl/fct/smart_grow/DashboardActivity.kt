@@ -30,6 +30,8 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dashboard)
 
         displayRoutines()
+        turnLight()
+        turnWater()
 
         temperatureGauge.setOnClickListener { finish(); startActivity(Intent(this, TemperatureGraph::class.java)) }
         humidityGauge.setOnClickListener { finish(); startActivity(Intent(this, HumidityGraph::class.java)) }
@@ -165,26 +167,67 @@ class DashboardActivity : AppCompatActivity() {
         super.finish()
     }
 
-    /*fun turnLight() {
-        val turn = findViewById<Switch>(R.id.Light)
-        turn.setOnClickListener {
-
-
+    fun turnLight() {
+        val turn = findViewById<Switch>(R.id.lightSwitch)
+        turn.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
-                val json = JSONObject()
-
-                HttpTask {
+                /*HttpTask(this@DashboardActivity) {
                     if (it == null) {
-                        Toast.makeText(this, "Error turning the Light, Try Again", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Error turning On the Light, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Light is On ", Toast.LENGTH_LONG).show()
                         println(it)
                     }
-
-                }.execute("POST", "https://api.smartgrow.space/turnLight", json.toString())
-
-
+                }.execute("POST", "https://api.smartgrow.space/artificialLight", "ON")*/
+            } else{
+                Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
+                //val auth = HttpTask.loginToApi(username,password)
+                /*HttpTask(this@DashboardActivity) {
+                    if (it == null) {
+                        Toast.makeText(this, "Error turning Off the Light, Try Again", Toast.LENGTH_LONG).show()
+                        return@HttpTask
+                    }else{
+                        Toast.makeText(this, "Light is Off ", Toast.LENGTH_LONG).show()
+                        println(it)
+                    }
+                }.execute("POST", "https://api.smartgrow.space/artificialLight", "OFF")*/
             }
-        }*/
+        }
+    }
+
+    fun turnWater() {
+        val turn = findViewById<Switch>(R.id.waterSwitch)
+        turn.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
+                //val auth = HttpTask.loginToApi(username,password)
+                /*HttpTask(this@DashboardActivity) {
+                    if (it == null) {
+                        Toast.makeText(this, "Error turning On the Water, Try Again", Toast.LENGTH_LONG).show()
+                        return@HttpTask
+                    }else{
+                        Toast.makeText(this, "Water is On ", Toast.LENGTH_LONG).show()
+                        println(it)
+                    }
+                }.execute("POST", "https://api.smartgrow.space/waterPlants", "ON")*/
+            } else{
+                Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
+                //val auth = HttpTask.loginToApi(username,password)
+                /*HttpTask(this@DashboardActivity) {
+                    if (it == null) {
+                        Toast.makeText(this, "Error turning Off the Water, Try Again", Toast.LENGTH_LONG).show()
+                        return@HttpTask
+                    }else{
+                        Toast.makeText(this, "Water is Off ", Toast.LENGTH_LONG).show()
+                        println(it)
+                    }
+                }.execute("POST", "https://api.smartgrow.space/waterPlants", "OFF")*/
+            }
+        }
+    }
+
+
 }
