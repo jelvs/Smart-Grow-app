@@ -33,6 +33,9 @@ class DashboardActivity : AppCompatActivity() {
         turnLight()
         turnWater()
 
+        findViewById<Switch>(R.id.lightSwitch).isChecked = StateSwitches.light
+        findViewById<Switch>(R.id.waterSwitch).isChecked = StateSwitches.water
+
         temperatureGauge.setOnClickListener { finish(); startActivity(Intent(this, TemperatureGraph::class.java)) }
         humidityGauge.setOnClickListener { finish(); startActivity(Intent(this, HumidityGraph::class.java)) }
         soilGauge.setOnClickListener { finish(); startActivity(Intent(this, SoilGraph::class.java)) }
@@ -107,7 +110,7 @@ class DashboardActivity : AppCompatActivity() {
                         val response = JSONArray(it).getJSONObject(0)
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
-                        textView.text = "$lastReading%"
+                        textView.text = "${lastReading.toDouble().roundToInt()}%"
                     } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
@@ -129,7 +132,7 @@ class DashboardActivity : AppCompatActivity() {
                         val response = JSONArray(it).getJSONObject(0)
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
-                        textView.text = "$lastReading%"
+                        textView.text = "${lastReading.toDouble().roundToInt()}%"
                     } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
@@ -171,29 +174,31 @@ class DashboardActivity : AppCompatActivity() {
         val turn = findViewById<Switch>(R.id.lightSwitch)
         turn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
-                /*HttpTask(this@DashboardActivity) {
+                HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning On the Light, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Light is On ", Toast.LENGTH_LONG).show()
+                        StateSwitches.light = true
                         println(it)
                     }
-                }.execute("POST", "https://api.smartgrow.space/artificialLight", "ON")*/
+                }.execute("POST", "http://192.168.43.140/light", "ON")
             } else{
-                Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
-                /*HttpTask(this@DashboardActivity) {
+                HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning Off the Light, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Light is Off ", Toast.LENGTH_LONG).show()
                         println(it)
+                        StateSwitches.light = false
                     }
-                }.execute("POST", "https://api.smartgrow.space/artificialLight", "OFF")*/
+                }.execute("POST", "http://192.168.43.140/light", "OFF")
             }
         }
     }
@@ -202,29 +207,31 @@ class DashboardActivity : AppCompatActivity() {
         val turn = findViewById<Switch>(R.id.waterSwitch)
         turn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
-                /*HttpTask(this@DashboardActivity) {
+                HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning On the Water, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Water is On ", Toast.LENGTH_LONG).show()
+                        StateSwitches.water = true
                         println(it)
                     }
-                }.execute("POST", "https://api.smartgrow.space/waterPlants", "ON")*/
+                }.execute("POST", "http://192.168.43.140/water", "ON")
             } else{
-                Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
-                /*HttpTask(this@DashboardActivity) {
+                HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning Off the Water, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Water is Off ", Toast.LENGTH_LONG).show()
+                        StateSwitches.water = false
                         println(it)
                     }
-                }.execute("POST", "https://api.smartgrow.space/waterPlants", "OFF")*/
+                }.execute("POST", "http://192.168.43.140/water", "OFF")
             }
         }
     }

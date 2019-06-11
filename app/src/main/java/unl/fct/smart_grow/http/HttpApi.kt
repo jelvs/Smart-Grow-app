@@ -12,7 +12,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-const val TIMEOUT = 10 * 1000
+const val TIMEOUT = 10 * 5000
 
 class HttpTask(val activity: Activity, callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() {
 
