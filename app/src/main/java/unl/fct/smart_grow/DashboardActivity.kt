@@ -39,7 +39,13 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        RoutineHelper.start()
+        val lightSwitch = findViewById<Switch>(R.id.lightSwitch)
+        val waterSwitch = findViewById<Switch>(R.id.waterSwitch)
+
+        lightSwitch.isChecked = StateSwitches.light
+        waterSwitch.isChecked = StateSwitches.water
+
+        RoutineHelper.start(lightSwitch, waterSwitch)
         displayRoutines()
         turnLight()
         turnWater()

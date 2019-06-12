@@ -1,18 +1,27 @@
 package unl.fct.smart_grow.utils
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.widget.Switch
 import unl.fct.smart_grow.http.HttpTask
 import java.time.LocalDateTime
 import kotlin.concurrent.thread
 
+@SuppressLint("StaticFieldLeak")
 object RoutineHelper {
+
+    private var waterSwitch: Switch? = null
+    private var lightSwitch: Switch? = null
 
     val routines = mutableListOf<Routine>()
     private var routineChecker: Thread? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun start() {
+    fun start(lightSwitch: Switch, waterSwitch: Switch) {
+        this.lightSwitch = lightSwitch
+        this.waterSwitch = waterSwitch
+
         if (routineChecker == null) {
             routineChecker = thread(true, false, null, "routineChecker") {
                 while (true) {
@@ -56,7 +65,7 @@ object RoutineHelper {
                 if (it == null) {
                     return@HttpTask
                 } else {
-                    StateSwitches.water = routine.state
+                    StateSwitches.turnOnOffWater(waterSwitch!!, routine.state)
                     println(it)
                 }
             }.execute("POST", "${ApiConfig.arduinoIp}/water", onOff)
@@ -66,7 +75,7 @@ object RoutineHelper {
                 if (it == null) {
                     return@HttpTask
                 } else {
-                    StateSwitches.light = routine.state
+                    StateSwitches.turnOnOffLight(lightSwitch!!, routine.state)
                     println(it)
                 }
             }.execute("POST", "${ApiConfig.arduinoIp}/light", onOff)
