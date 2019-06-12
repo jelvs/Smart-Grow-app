@@ -262,7 +262,10 @@ class DashboardActivity : AppCompatActivity() {
                 }else{
                     Toast.makeText(this, "Light is Off ", Toast.LENGTH_LONG).show()
                     println(it)
-                    StateSwitches.light = false
+
+                    // Update switch
+                    val switch = findViewById<Switch>(R.id.lightSwitch)
+                    StateSwitches.turnOnOffLight(switch, false)
                 }
             }.execute("POST", "${ApiConfig.arduinoIp}/light", "OFF")
         }
