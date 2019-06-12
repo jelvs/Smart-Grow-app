@@ -55,9 +55,9 @@ class RoutineActivity : AppCompatActivity() {
             json.put("output", spinner.selectedItem.toString())
             json.put("datetime", (LocalDateTime.of(year, month, dayOfMonth, hour, min).toEpochSecond(ZoneOffset.UTC)).toString())
 
-            //TODO: on/off to routine
 
-            val newRoutine = Routine(spinner.selectedItem.toString(), LocalDateTime.of(year, month, dayOfMonth, hour, min))
+            val turnOn = findViewById<RadioButton>(R.id.routineOn).isChecked
+            val newRoutine = Routine(spinner.selectedItem.toString(), LocalDateTime.of(year, month, dayOfMonth, hour, min), turnOn)
             RoutineHelper.addRoutine(newRoutine)
 
             HttpTask(this) {

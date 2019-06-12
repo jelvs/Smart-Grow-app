@@ -28,4 +28,10 @@ object MockJwtStorage {
 
         return decodeJwt?.expiresAt?.before(Date()) ?: false
     }
+
+    fun logout (){
+        this.jwt = null;
+        this.isAdmin = false;
+        this.userName = null;
+    }
 }

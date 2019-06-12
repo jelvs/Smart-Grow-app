@@ -8,6 +8,8 @@ import android.widget.*
 import org.json.JSONArray
 import org.json.JSONObject
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.utils.Routine
+import unl.fct.smart_grow.utils.RoutineHelper
 
 
 class RoutineList : AppCompatActivity() {
@@ -17,7 +19,7 @@ class RoutineList : AppCompatActivity() {
         setContentView(R.layout.activity_routine_list)
 
         setListeners()
-        setTable()
+        fillTable()
     }
 
     private fun setListeners() {
@@ -36,53 +38,60 @@ class RoutineList : AppCompatActivity() {
         // do nothing
     }
 
-    private fun setTable() {
-        HttpTask(this) {
-            if (it == null) {
-                Toast.makeText(this, "Error checking current soils", Toast.LENGTH_LONG).show()
-            } else {
-                val response = JSONArray(it)
-                fillTable(response)
-            }
-        }.execute("GET", "https://api.smartgrow.space/routine")
-    }
+//    private fun setTable() {
+//        fillTable()
+////        HttpTask(this) {
+////            if (it == null) {
+////                Toast.makeText(this, "Error checking current soils", Toast.LENGTH_LONG).show()
+////            } else {
+////                val response = JSONArray(it)
+////                fillTable(response)
+////            }
+////        }.execute("GET", "https://api.smartgrow.space/routine")
+//    }
 
-    private fun fillTable(routines: JSONArray) {
+    private fun fillTable() {
         val container = findViewById<TableLayout>(R.id.listRoutines)
         container.removeAllViews()
 
         val inflater = LayoutInflater.from(this)
 
-        if (routines.length() == 0) {
+        if (RoutineHelper.routines.isEmpty()) {
             val child = TextView(this)
 
             child.text = "No routines set..."
             container.addView(child)
         } else {
-            for (index in 0 until routines.length()) {
-                val routine = routines.getJSONObject(index)
+            for (index in 0 until RoutineHelper.routines.size) {
+                val routine = RoutineHelper.routines[index]
 
                 val child = inflater.inflate(R.layout.routine_table_item, container, false) as LinearLayout
 
-                child.findViewById<TextView>(R.id.motor).text = routine.getString("Output")
-                child.findViewById<TextView>(R.id.dateof).text = routine.getString("Datetime")
-                child.findViewById<TextView>(R.id.onoff).text = "ON"
+                child.findViewById<TextView>(R.id.motor).text = routine.output
+                child.findViewById<TextView>(R.id.dateof).text = routine.dateTime.toString()
+                child.findViewById<TextView>(R.id.onoff).text = if (routine.state) "ON" else "OFF"
 
                 child.findViewById<ImageButton>(R.id.action).setOnClickListener {
 
-                    val json = JSONObject()
-                    json.put("id", routine.getInt("Id"))
+                    RoutineHelper.deleteRoutine(routine)
+                    finish()
+                    startActivity(Intent(this, RoutineList::class.java))
 
-                    //TODO: delete locally
+//                    val json = JSONObject()
+//                    json.put("id", routine.getInt("Id"))
+//
 
-                    HttpTask(this) {
-                        if (it == null) {
-                            //
-                        } else {
-                            finish()
-                            startActivity(Intent(this, RoutineList::class.java))
-                        }
-                    }.execute("DELETE", "https://api.smartgrow.space/routine", json.toString())
+//                    //TODO: delete locally
+
+//
+//                    HttpTask(this) {
+//                        if (it == null) {
+//                            //
+//                        } else {
+//                            finish()
+//                            startActivity(Intent(this, RoutineList::class.java))
+//                        }
+//                    }.execute("DELETE", "https://api.smartgrow.space/routine", json.toString())
                 }
 
                 container.addView(child)

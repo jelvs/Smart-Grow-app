@@ -1,13 +1,18 @@
 package unl.fct.smart_grow.utils
 
+import android.app.Activity
+import android.app.Application
+import android.content.Context
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.widget.Toast
+import unl.fct.smart_grow.http.HttpTask
 import java.time.LocalDateTime
 import kotlin.concurrent.thread
 
-object RoutineHelper {
+object RoutineHelper: Activity() {
 
-    private val routines = mutableListOf<Routine>()
+    val routines = mutableListOf<Routine>()
     private var routineChecker: Thread? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -35,8 +40,36 @@ object RoutineHelper {
         routines.add(routine)
     }
 
+    fun deleteRoutine (routine: Routine){
+        this.routines.remove(routine)
+    }
+
     private fun executeRoutine (routine: Routine) {
-        //TODO: call to arduino
+        if (routine.output == "Water"){
+                HttpTask(this) {
+                    if (it == null) {
+                        //Toast.makeText(this, "Error turning On the Water, Try Again", Toast.LENGTH_LONG).show()
+                        return@HttpTask
+                    }else{
+                        //Toast.makeText(this, "Water is On ", Toast.LENGTH_LONG).show()
+                        StateSwitches.water = true
+                        println(it)
+                    }
+                }.execute("POST", "http://192.168.43.140/water", "ON")
+
+        }else{
+            HttpTask(this) {
+                if (it == null) {
+                    //Toast.makeText(this, "Error turning On the Water, Try Again", Toast.LENGTH_LONG).show()
+                    return@HttpTask
+                }else{
+                    //Toast.makeText(this, "Water is On ", Toast.LENGTH_LONG).show()
+                    StateSwitches.water = true
+                    println(it)
+                }
+            }.execute("POST", "http://192.168.43.140/light", "ON")
+            println("LIGHT")
+        }
         println ("executing routine")
     }
 }

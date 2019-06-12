@@ -51,6 +51,10 @@ class DashboardActivity : AppCompatActivity() {
         soilGauge.setOnClickListener { finish(); startActivity(Intent(this, SoilGraph::class.java)) }
         lightGauge.setOnClickListener { finish(); startActivity(Intent(this, LightGraph::class.java)) }
         routines.setOnClickListener { finish(); startActivity(Intent(this, RoutineList::class.java)) }
+        logout.setOnClickListener {
+            MockJwtStorage.logout()
+            finish(); startActivity(Intent(this, LoginActivity::class.java))
+        }
 
         val temperatureValue = findViewById<TextView>(R.id.temperatureValue)
         val gaugeTemperature = findViewById<CustomGauge>(R.id.temperatureGauge)
@@ -212,6 +216,8 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     fun turnWater() {
         val turn = findViewById<Switch>(R.id.waterSwitch)
