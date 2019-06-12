@@ -126,6 +126,8 @@ class DashboardActivity : AppCompatActivity() {
                         val lastReading = response.getString("Reading")
                         gauge.value = lastReading.toDouble().roundToInt()
                         textView.text = "${lastReading.toDouble().roundToInt()}%"
+
+                        automatedLightShutdown(lastReading.toDouble().roundToInt())
                     } catch (e: Exception) {
                         gauge.value = 0
                         textView.text = "N/A"
@@ -185,7 +187,7 @@ class DashboardActivity : AppCompatActivity() {
         super.finish()
     }
 
-    fun turnLight() {
+    private fun turnLight() {
         val turn = findViewById<Switch>(R.id.lightSwitch)
         turn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
@@ -218,9 +220,7 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-
-
-    fun turnWater() {
+    private fun turnWater() {
         val turn = findViewById<Switch>(R.id.waterSwitch)
         turn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
@@ -253,5 +253,18 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-
+    private fun automatedLightShutdown (lightSensorValue: Int) {
+        if (lightSensorValue >= 50) {
+            HttpTask(this@DashboardActivity) {
+                if (it == null) {
+                    Toast.makeText(this, "Error turning Off the Light, Try Again", Toast.LENGTH_LONG).show()
+                    return@HttpTask
+                }else{
+                    Toast.makeText(this, "Light is Off ", Toast.LENGTH_LONG).show()
+                    println(it)
+                    StateSwitches.light = false
+                }
+            }.execute("POST", "${ApiConfig.arduinoIp}/light", "OFF")
+        }
+    }
 }

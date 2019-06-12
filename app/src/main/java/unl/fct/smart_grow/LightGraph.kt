@@ -99,7 +99,7 @@ class LightGraph : AppCompatActivity() {
             set1.valueTextSize = 10f
         }
 
-        val limitLineUpper = LimitLine(60f, "Too Bright")
+        val limitLineUpper = LimitLine(50f, "Too Bright")
         limitLineUpper.lineWidth = 4f
         limitLineUpper.enableDashedLine(10f, 10f, 0f)
         limitLineUpper.labelPosition = LimitLine.LimitLabelPosition.LEFT_TOP
