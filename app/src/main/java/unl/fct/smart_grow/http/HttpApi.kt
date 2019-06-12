@@ -14,7 +14,7 @@ import java.net.URL
 
 const val TIMEOUT = 10 * 5000
 
-class HttpTask(val activity: Activity, callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() {
+class HttpTask(val activity: Activity?, callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() {
 
     var callback = callback
 
@@ -58,14 +58,15 @@ class HttpTask(val activity: Activity, callback: (String?) -> Unit) : AsyncTask<
                 httpClient.disconnect()
             }
         } else {
-            activity.runOnUiThread { Toast.makeText(activity, "Session Expired", Toast.LENGTH_LONG).show() }
-            //Toast.makeText(activity.baseContext, "Session Expired", Toast.LENGTH_LONG).show()
-            activity.finish()
-            val i = Intent(activity, LoginActivity::class.java)
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            ContextCompat.startActivity(activity, i, null)
+            if (activity != null) {
+                activity.runOnUiThread { Toast.makeText(activity, "Session Expired", Toast.LENGTH_LONG).show() }
+                //Toast.makeText(activity.baseContext, "Session Expired", Toast.LENGTH_LONG).show()
+                activity.finish()
+                val i = Intent(activity, LoginActivity::class.java)
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                ContextCompat.startActivity(activity, i, null)
+            }
         }
-
         return null
     }
 
