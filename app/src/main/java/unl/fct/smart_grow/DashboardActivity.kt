@@ -191,21 +191,21 @@ class DashboardActivity : AppCompatActivity() {
         val turn = findViewById<Switch>(R.id.lightSwitch)
         turn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                //Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
-                //val auth = HttpTask.loginToApi(username,password)
                 HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning On the Light, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Light is On ", Toast.LENGTH_LONG).show()
-                        StateSwitches.light = true
+
+                        // Update switch
+                        val switch = findViewById<Switch>(R.id.lightSwitch)
+                        StateSwitches.turnOnOffLight(switch, true)
+
                         println(it)
                     }
                 }.execute("POST", "${ApiConfig.arduinoIp}/light", "ON")
             } else{
-                //Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
-                //val auth = HttpTask.loginToApi(username,password)
                 HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning Off the Light, Try Again", Toast.LENGTH_LONG).show()
@@ -213,7 +213,10 @@ class DashboardActivity : AppCompatActivity() {
                     }else{
                         Toast.makeText(this, "Light is Off ", Toast.LENGTH_LONG).show()
                         println(it)
-                        StateSwitches.light = false
+
+                        // Update switch
+                        val switch = findViewById<Switch>(R.id.lightSwitch)
+                        StateSwitches.turnOnOffLight(switch, false)
                     }
                 }.execute("POST", "${ApiConfig.arduinoIp}/light", "OFF")
             }
@@ -224,28 +227,32 @@ class DashboardActivity : AppCompatActivity() {
         val turn = findViewById<Switch>(R.id.waterSwitch)
         turn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                //Toast.makeText(this, "ON", Toast.LENGTH_LONG).show()
-                //val auth = HttpTask.loginToApi(username,password)
                 HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning On the Water, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Water is On ", Toast.LENGTH_LONG).show()
-                        StateSwitches.water = true
+
+                        // Update switch
+                        val switch = findViewById<Switch>(R.id.waterSwitch)
+                        StateSwitches.turnOnOffWater(switch, true)
+
                         println(it)
                     }
                 }.execute("POST", "${ApiConfig.arduinoIp}/water", "ON")
             } else{
-                //Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
-                //val auth = HttpTask.loginToApi(username,password)
                 HttpTask(this@DashboardActivity) {
                     if (it == null) {
                         Toast.makeText(this, "Error turning Off the Water, Try Again", Toast.LENGTH_LONG).show()
                         return@HttpTask
                     }else{
                         Toast.makeText(this, "Water is Off ", Toast.LENGTH_LONG).show()
-                        StateSwitches.water = false
+
+                        // Update switch
+                        val switch = findViewById<Switch>(R.id.waterSwitch)
+                        StateSwitches.turnOnOffWater(switch, false)
+
                         println(it)
                     }
                 }.execute("POST", "${ApiConfig.arduinoIp}/water", "OFF")
@@ -254,7 +261,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun automatedLightShutdown (lightSensorValue: Int) {
-        if (lightSensorValue >= 50) {
+        if (lightSensorValue >= 50 && !StateSwitches.light) {
             HttpTask(this@DashboardActivity) {
                 if (it == null) {
                     Toast.makeText(this, "Error turning Off the Light, Try Again", Toast.LENGTH_LONG).show()

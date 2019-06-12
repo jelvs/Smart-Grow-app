@@ -7,8 +7,13 @@ object StateSwitches {
     var water: Boolean = false
     var light: Boolean = false
 
-    fun turnOnOffLight (switch: Switch, on: Boolean) {
+    fun turnOnOffLight(switch: Switch, on: Boolean) {
         light = on
+        switch.isChecked = on
+    }
+
+    fun turnOnOffWater(switch: Switch, on: Boolean) {
+        water = on
         switch.isChecked = on
     }
 }
