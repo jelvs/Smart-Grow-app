@@ -18,6 +18,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.json.JSONArray
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.utils.ApiConfig
 
 class TemperatureGraph : AppCompatActivity() {
 
@@ -52,7 +53,7 @@ class TemperatureGraph : AppCompatActivity() {
                 val response = JSONArray(it)
                 setTemperatureData(response, numberOfReadings)
             }
-        }.execute("GET", "https://api.smartgrow.space/temperature?readings=$numberOfReadings")
+        }.execute("GET", "${ApiConfig.smartGrowApi}/temperature?readings=$numberOfReadings")
     }
 
     @SuppressLint("NewApi")

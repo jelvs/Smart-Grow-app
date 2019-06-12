@@ -56,20 +56,20 @@ object RoutineHelper {
                 if (it == null) {
                     return@HttpTask
                 } else {
-                    StateSwitches.water = true
+                    StateSwitches.water = routine.state
                     println(it)
                 }
-            }.execute("POST", "http://192.168.43.140/water", onOff)
+            }.execute("POST", "${ApiConfig.arduinoIp}/water", onOff)
 
         } else {
             HttpTask(null) {
                 if (it == null) {
                     return@HttpTask
                 } else {
-                    StateSwitches.light = true
+                    StateSwitches.light = routine.state
                     println(it)
                 }
-            }.execute("POST", "http://192.168.43.140/light", onOff)
+            }.execute("POST", "${ApiConfig.arduinoIp}/light", onOff)
         }
     }
 }

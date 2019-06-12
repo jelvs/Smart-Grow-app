@@ -18,6 +18,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.json.JSONArray
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.utils.ApiConfig
 
 class SoilGraph : AppCompatActivity() {
 
@@ -52,7 +53,7 @@ class SoilGraph : AppCompatActivity() {
                 val response = JSONArray(it)
                 setSoilData(response, numberOfReadings)
             }
-        }.execute("GET", "https://api.smartgrow.space/soil?readings=$numberOfReadings")
+        }.execute("GET", "${ApiConfig.smartGrowApi}/soil?readings=$numberOfReadings")
     }
 
     @SuppressLint("NewApi")

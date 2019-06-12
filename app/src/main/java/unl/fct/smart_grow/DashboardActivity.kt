@@ -18,6 +18,7 @@ import org.json.JSONArray
 import pl.pawelkleczkowski.customgauge.CustomGauge
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
+import unl.fct.smart_grow.utils.ApiConfig
 import unl.fct.smart_grow.utils.RoutineHelper
 import unl.fct.smart_grow.utils.StateSwitches
 import java.util.*
@@ -86,7 +87,7 @@ class DashboardActivity : AppCompatActivity() {
                         textView.text = "N/A"
                     }
                 }
-            }.execute("GET", "https://api.smartgrow.space/temperature")
+            }.execute("GET", "${ApiConfig.smartGrowApi}/temperature")
         }
     }
 
@@ -108,7 +109,7 @@ class DashboardActivity : AppCompatActivity() {
                         textView.text = "N/A"
                     }
                 }
-            }.execute("GET", "https://api.smartgrow.space/humidity")
+            }.execute("GET", "${ApiConfig.smartGrowApi}/humidity")
         }
     }
 
@@ -130,7 +131,7 @@ class DashboardActivity : AppCompatActivity() {
                         textView.text = "N/A"
                     }
                 }
-            }.execute("GET", "https://api.smartgrow.space/light")
+            }.execute("GET", "${ApiConfig.smartGrowApi}/light")
         }
     }
 
@@ -152,7 +153,7 @@ class DashboardActivity : AppCompatActivity() {
                         textView.text = "N/A"
                     }
                 }
-            }.execute("GET", "https://api.smartgrow.space/soil")
+            }.execute("GET", "${ApiConfig.smartGrowApi}/soil")
         }
     }
 
@@ -199,7 +200,7 @@ class DashboardActivity : AppCompatActivity() {
                         StateSwitches.light = true
                         println(it)
                     }
-                }.execute("POST", "http://192.168.43.140/light", "ON")
+                }.execute("POST", "${ApiConfig.arduinoIp}/light", "ON")
             } else{
                 //Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
@@ -212,7 +213,7 @@ class DashboardActivity : AppCompatActivity() {
                         println(it)
                         StateSwitches.light = false
                     }
-                }.execute("POST", "http://192.168.43.140/light", "OFF")
+                }.execute("POST", "${ApiConfig.arduinoIp}/light", "OFF")
             }
         }
     }
@@ -234,7 +235,7 @@ class DashboardActivity : AppCompatActivity() {
                         StateSwitches.water = true
                         println(it)
                     }
-                }.execute("POST", "http://192.168.43.140/water", "ON")
+                }.execute("POST", "${ApiConfig.arduinoIp}/water", "ON")
             } else{
                 //Toast.makeText(this, "OFF", Toast.LENGTH_LONG).show()
                 //val auth = HttpTask.loginToApi(username,password)
@@ -247,7 +248,7 @@ class DashboardActivity : AppCompatActivity() {
                         StateSwitches.water = false
                         println(it)
                     }
-                }.execute("POST", "http://192.168.43.140/water", "OFF")
+                }.execute("POST", "${ApiConfig.arduinoIp}/water", "OFF")
             }
         }
     }

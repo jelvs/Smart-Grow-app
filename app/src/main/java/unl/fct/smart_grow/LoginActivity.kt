@@ -10,6 +10,7 @@ import android.widget.*
 import org.json.JSONObject
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
+import unl.fct.smart_grow.utils.ApiConfig
 
 class LoginActivity : AppCompatActivity() {
 
@@ -58,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(Intent(this, DashboardActivity::class.java))
                     }
 
-                }.execute("POST", "https://api.smartgrow.space/login", json.toString())
+                }.execute("POST", "${ApiConfig.smartGrowApi}/login", json.toString())
             }
         }
     }

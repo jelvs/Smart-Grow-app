@@ -10,6 +10,7 @@ import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import org.json.JSONObject
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.utils.ApiConfig
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -60,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this, "Register Successfully", Toast.LENGTH_LONG).show()
                         println(it)
                     }
-                }.execute("POST", "https://api.smartgrow.space/register", json.toString())
+                }.execute("POST", "${ApiConfig.smartGrowApi}/register", json.toString())
             }
 
         }

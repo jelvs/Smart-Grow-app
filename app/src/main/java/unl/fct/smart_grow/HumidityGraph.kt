@@ -18,6 +18,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.json.JSONArray
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.utils.ApiConfig
 
 class HumidityGraph : AppCompatActivity() {
 
@@ -52,7 +53,7 @@ class HumidityGraph : AppCompatActivity() {
                 val response = JSONArray(it)
                 setHumidityData(response, numberOfReadings)
             }
-        }.execute("GET", "https://api.smartgrow.space/humidity?readings=$numberOfReadings")
+        }.execute("GET", "${ApiConfig.smartGrowApi}/humidity?readings=$numberOfReadings")
     }
 
     @SuppressLint("NewApi")

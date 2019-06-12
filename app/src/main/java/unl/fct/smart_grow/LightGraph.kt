@@ -18,6 +18,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.json.JSONArray
 import unl.fct.smart_grow.http.HttpTask
+import unl.fct.smart_grow.utils.ApiConfig
 
 class LightGraph : AppCompatActivity() {
 
@@ -52,7 +53,7 @@ class LightGraph : AppCompatActivity() {
                 val response = JSONArray(it)
                 setLightData(response, numberOfReadings)
             }
-        }.execute("GET", "https://api.smartgrow.space/light?readings=$numberOfReadings")
+        }.execute("GET", "${ApiConfig.smartGrowApi}/light?readings=$numberOfReadings")
     }
 
     @SuppressLint("NewApi")

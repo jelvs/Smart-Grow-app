@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_routine.view.*
 import org.json.JSONObject
 import unl.fct.smart_grow.http.HttpTask
 import unl.fct.smart_grow.security.MockJwtStorage
+import unl.fct.smart_grow.utils.ApiConfig
 import unl.fct.smart_grow.utils.Routine
 import unl.fct.smart_grow.utils.RoutineHelper
 import java.time.Instant
@@ -69,7 +70,7 @@ class RoutineActivity : AppCompatActivity() {
                     startActivity(Intent(this, RoutineList::class.java))
                 }
 
-            }.execute("POST", "https://api.smartgrow.space/routine", json.toString())
+            }.execute("POST", "${ApiConfig.smartGrowApi}/routine", json.toString())
         }
 
         val goBack = findViewById<ImageButton>(R.id.gobackroutine)
